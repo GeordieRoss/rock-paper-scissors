@@ -75,22 +75,25 @@ function playRound() {
     const humanChoice = getHumanChoice();
     const computerChoice = getComputerChoice();
     var score = compareScores(humanChoice, computerChoice, 3)
+    var winGraphic;
     console.log(score)
     switch (score) {
         case 1:
             humanScore++;
+            winGraphic = ' !---- BEATS ----> '
             break;
 
         case 2:
             computerScore++;
+            winGraphic = ' <---- BEATS ----! '
             break;
 
         default:
+            winGraphic = ' ?---- DRAW ----? '
             break;
     }
-
     console.log("=======This Round=======");
-    console.log("H: " + getFriendlyOutput(humanChoice) + " | C: " + getFriendlyOutput(computerChoice));
+    console.log("H: " + getFriendlyOutput(humanChoice) + winGraphic + "C: " + getFriendlyOutput(computerChoice));
     console.log("=====Current Scores=====");
     console.log("H: " + humanScore + " C: " + computerScore);
 
