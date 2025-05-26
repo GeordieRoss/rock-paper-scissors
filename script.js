@@ -1,3 +1,7 @@
+// Globals
+const assetsPath = "./assets/"
+
+
 
 function getComputerChoice() {
 
@@ -70,49 +74,92 @@ function compareScores(p1, p2, n) {
 
 }
 
-function playRound() {
+function playRound(humanChoiceStr = "") {
 
-    const humanChoice = getHumanChoice();
+    const hHand = document.querySelector("#left-hand")
+    const cHand = document.querySelector("#right-hand")
+
+    // Get computer choice
     const computerChoice = getComputerChoice();
+    if (humanChoiceStr == "") {
+        humanChoice = getHumanChoice();
+    }
+
+    // Parse human choice
+    switch (humanChoiceStr) {
+        case "rock":
+            humanChoice = 1;
+            hHand.src = assetsPath + "rock-Lhand.png"
+            break;
+        case "paper":
+            humanChoice = 2;
+            hHand.src = assetsPath + "paper-Lhand.png"
+            break;
+        case "scissors":
+            humanChoice = 3;
+            hHand.src = assetsPath + "scissors-Lhand.png"
+            break;
+        default:
+            break;
+    }
+
+    switch (computerChoice) {
+        case 1:
+            cHand.src = assetsPath + "rock-Rhand.png"
+            break;
+        case 2:
+            cHand.src = assetsPath + "paper-Rhand.png"
+            break;
+        case 3:
+            cHand.src = assetsPath + "scissors-Rhand.png"
+            break;
+        default:
+            break;
+    }
+
     var score = compareScores(humanChoice, computerChoice, 3)
-    var winGraphic;
-    console.log(score)
+
+    const hScore = document.querySelector("#score-human");
+    const cScore = document.querySelector("#score-computer");
+    const announcement = document.querySelector("#announcement");
+
     switch (score) {
         case 1:
             humanScore++;
-            winGraphic = ' !---- BEATS ----> '
+            hScore.textContent = humanScore;
+            announcement.textContent = "You win! :D"
+            announcement.style.background = "green"
             break;
 
         case 2:
             computerScore++;
-            winGraphic = ' <---- BEATS ----! '
+            cScore.textContent = computerScore;
+            announcement.textContent = "CPU wins! :("
+            announcement.style.background = "red"
             break;
 
         default:
-            winGraphic = ' ?---- DRAW ----? '
+            announcement.textContent = "Draw... :/"
+            announcement.style.background = "yellow"
             break;
     }
-    console.log("=======This Round=======");
-    console.log("H: " + getFriendlyOutput(humanChoice) + winGraphic + "C: " + getFriendlyOutput(computerChoice));
-    console.log("=====Current Scores=====");
-    console.log("H: " + humanScore + " C: " + computerScore);
 
 }
+
+const buttons = document.querySelectorAll("button")
+buttons.forEach((button) => {
+    // and for each one we add a 'click' listener
+    button.addEventListener("click", () => {
+        playRound(button.id);
+    });
+});
 
 var humanScore = 0;
 var computerScore = 0;
 
-var rounds = 0
-
-while (rounds < 5) {
-    playRound();
-    rounds++;
-}
 
 
-
-
-//====================== Tests ==================================
+//====================== Tests ======================\\
 
 function testCompareScores() {
 
