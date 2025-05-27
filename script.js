@@ -1,8 +1,6 @@
 // Globals
 const assetsPath = "./assets/"
 
-
-
 function getComputerChoice() {
 
     // Get random number between 1-3
@@ -121,26 +119,27 @@ function playRound(humanChoiceStr = "") {
 
     const hScore = document.querySelector("#score-human");
     const cScore = document.querySelector("#score-computer");
-    const announcement = document.querySelector("#announcement");
+    const youWord = document.querySelector("#you");
+    const cpuWord = document.querySelector("#cpu");
 
     switch (score) {
         case 1:
             humanScore++;
             hScore.textContent = humanScore;
-            announcement.textContent = "You win! :D"
-            announcement.style.background = "green"
+            youWord.style.backgroundColor = "green";
+            cpuWord.style.backgroundColor = "transparent";
             break;
 
         case 2:
             computerScore++;
             cScore.textContent = computerScore;
-            announcement.textContent = "CPU wins! :("
-            announcement.style.background = "red"
+            youWord.style.backgroundColor = "transparent";
+            cpuWord.style.backgroundColor = "green";
             break;
 
         default:
-            announcement.textContent = "Draw... :/"
-            announcement.style.background = "yellow"
+            youWord.style.backgroundColor = "yellow";
+            cpuWord.style.backgroundColor = "yellow";
             break;
     }
 
@@ -158,38 +157,3 @@ var humanScore = 0;
 var computerScore = 0;
 
 
-
-//====================== Tests ======================\\
-
-function testCompareScores() {
-
-    var allPassed = true;
-
-    if (compareScores(0, 1, 3) != 2) {
-        allPassed = false;
-        console.log("test 1 failed")
-        console.log(compareScores(0, 1, 3))
-    }
-
-    if (compareScores(2, 1, 3) != 1) {
-        allPassed = false;
-        console.log("test 2 failed")
-        console.log(compareScores(2, 1, 3))
-    }
-
-    if (compareScores(0, 2, 3) != 1) {
-        allPassed = false;
-        console.log("test 3 failed")
-        console.log(compareScores(0, 2, 3))
-    }
-
-    if (compareScores(2, 2, 3) != 0) {
-        allPassed = false;
-        console.log("test 4 failed")
-        console.log(compareScores(2, 2, 3))
-    }
-
-    if (allPassed) {
-        console.log("All tests passed")
-    }
-}
